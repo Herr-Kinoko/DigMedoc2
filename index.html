@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Wärmebild-Vergleich Berlin</title>
+  <style>
+    body {
+      background: #111;
+      color: white;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    .container {
+      position: relative;
+      width: 90%;
+      max-width: 1000px;
+      aspect-ratio: 2 / 1;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: opacity 0.3s ease;
+    }
+
+    .slider-container {
+      width: 90%;
+      max-width: 1000px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Temperaturvergleich Berlin (Tag vs. Nacht)</h2>
+
+  <div class="container">
+    <img src="Bildschirmfoto 2025-06-16 um 23.09.31.png" class="image" id="bildTag" alt="Tagesbild">
+    <img src="Bildschirmfoto 2025-06-16 um 23.09.45.png" class="image" id="bildNacht" alt="Nachtbild">
+  </div>
+
+  <div class="slider-container">
+    <input type="range" min="0" max="100" value="0" id="slider">
+  </div>
+
+  <script>
+    const slider = document.getElementById('slider');
+    const bildTag = document.getElementById('bildTag');
+    const bildNacht = document.getElementById('bildNacht');
+
+    slider.addEventListener('input', () => {
+      const value = parseInt(slider.value) / 100;
+      bildTag.style.opacity = 1 - value;
+      bildNacht.style.opacity = value;
+    });
+
+    // Initialzustand setzen
+    bildTag.style.opacity = 1;
+    bildNacht.style.opacity = 0;
+  </script>
+
+</body>
+</html>
