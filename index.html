@@ -1,31 +1,31 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <title>Wärmebild-Vergleich Berlin</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Temperaturvergleich Berlin – Opacity</title>
   <style>
     body {
       background: #111;
       color: white;
       font-family: sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
       margin: 0;
-      padding: 20px;
+      padding: 1em;
+      text-align: center;
     }
 
     h2 {
-      margin-bottom: 20px;
+      margin-bottom: 1em;
     }
 
     .container {
       position: relative;
-      width: 90%;
+      width: 100%;
       max-width: 1000px;
+      margin: 0 auto;
       aspect-ratio: 2 / 1;
       overflow: hidden;
-      margin-bottom: 20px;
+      border-radius: 12px;
     }
 
     .image {
@@ -35,26 +35,53 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: opacity 0.3s ease;
+      transition: opacity 0.2s ease-in-out;
     }
 
     .slider-container {
-      width: 90%;
-      max-width: 1000px;
+      margin-top: 20px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
     }
 
     input[type="range"] {
-      width: 100%;
+      width: 80%;
+      max-width: 500px;
+      appearance: none;
+      height: 10px;
+      background: #444;
+      border-radius: 5px;
+      outline: none;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #fff;
+      cursor: pointer;
+      box-shadow: 0 0 4px rgba(0,0,0,0.6);
+    }
+
+    input[type="range"]::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #fff;
+      cursor: pointer;
+      box-shadow: 0 0 4px rgba(0,0,0,0.6);
     }
   </style>
 </head>
 <body>
 
-  <h2>Temperaturvergleich Berlin (Tag vs. Nacht)</h2>
+  <h2>Temperaturvergleich Berlin (Tag ↔ Wärmebild)</h2>
 
   <div class="container">
-    <img src="waerme.png" class="image" id="bildTag" alt="Tagesbild">
-    <img src="kaelte.png" class="image" id="bildNacht" alt="Nachtbild">
+    <img src="kaelte.png" class="image" id="bild1" alt="Satellitenbild">
+    <img src="waerme.png" class="image" id="bild2" alt="Wärmebild">
   </div>
 
   <div class="slider-container">
@@ -63,18 +90,18 @@
 
   <script>
     const slider = document.getElementById('slider');
-    const bildTag = document.getElementById('bildTag');
-    const bildNacht = document.getElementById('bildNacht');
+    const bild1 = document.getElementById('bild1'); // Satellit
+    const bild2 = document.getElementById('bild2'); // Wärmebild
 
     slider.addEventListener('input', () => {
-      const value = parseInt(slider.value) / 100;
-      bildTag.style.opacity = 1 - value;
-      bildNacht.style.opacity = value;
+      const value = parseInt(slider.value, 10) / 100;
+      bild1.style.opacity = 1 - value;
+      bild2.style.opacity = value;
     });
 
-    // Initialzustand setzen
-    bildTag.style.opacity = 1;
-    bildNacht.style.opacity = 0;
+    // Startzustand
+    bild1.style.opacity = 1;
+    bild2.style.opacity = 0;
   </script>
 
 </body>
